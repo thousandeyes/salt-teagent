@@ -1,0 +1,11 @@
+log-level=DEBUG
+num-log-files=13
+crash-reports=1
+account-token={{ account_token }}
+log-path={{ log_path|default('/var/log', true) }}
+log-file-size={{ log_file_size|default('10', true) }}
+proxy-port={{ proxy_port|default('0', true) }}
+proxy-host={{ proxy_host|default('') }}
+proxy-user={{ proxy_user|default('') }}
+proxy-pass={{ proxy_pass|default('') }}
+proxy-bypass-list={{ proxy_bypass_list|default('') }}
