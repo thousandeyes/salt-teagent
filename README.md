@@ -2,70 +2,108 @@
 This is a Saltstack module for the ThousandEyes Enterprise Agent.
 
 ## Usage
-Copy the te-agent folder to the corresponding Saltstack *file_roots* directory.
+Copy the **thousandeyes** folder to the corresponding Saltstack *file_roots* directory.
 Below are several use cases with different install options for the ThousandEyes Enterprise Agent.
 
 The configuration settings required have to be specified in the *te-agent.conf.yml* file with YAML syntax.
 
 
- * Default settings
+Attributes
+----------
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+    <th>Possible values</th>
+  </tr>
+  <tr>
+    <td><tt>te_agent:</tt></td>
+    <td>String</td>
+    <td>Manage ThousandEyes agent</td>
+    <td><tt>'installed'</tt></td>
+    <td><tt>'installed','removed','purged'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>browserbot:</tt></td>
+    <td>String</td>
+    <td>Manages Browserbot</td>
+    <td><tt>-</tt></td>
+    <td><tt>'installed','removed','purged'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>set_repo:</tt></td>
+    <td>String</td>
+    <td>Manages ThousandEyes repository</td>
+    <td><tt>'managed'</tt></td>
+    <td><tt>'managed','absent'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>agent_utils:</tt></td>
+    <td>String</td>
+    <td>Manages agent utilities</td>
+    <td><tt>-</tt></td>
+    <td><tt>'installed','removed','purged'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>international_langs:</tt></td>
+    <td>String</td>
+    <td>Manages language pack</td>
+    <td><tt>-</tt></td>
+    <td><tt>'installed','removed','purged'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>account_token:</tt></td>
+    <td>String</td>
+    <td>Account token for the agent</td>
+    <td><tt>sample value (equals a disabled agent)</tt></td>
+  </tr>
+  <tr>
+    <td><tt>log_path:</tt></td>
+    <td>String</td>
+    <td>Agent log path</td>
+    <td><tt>'/var/log'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>proxy_host:</tt></td>
+    <td>String</td>
+    <td>Proxy hostname</td>
+    <td><tt>''</tt></td>
+  </tr>
+  <tr>
+    <td><tt>proxy_port:</tt></td>
+    <td>String</td>
+    <td>Proxy port</td>
+    <td><tt>'0'</tt></td>
+  </tr>
+</table>
 
-  ```
-  account_token       : '<account-token>'
-  ```
-
- * Enable browserbot
-
-  ```
-  account_token       : '<account-token>'
-  browserbot          : true
-  ```
-
- * Install the ThousandEyes Agent Utilities
-
-  ```
-  account_token       : '<account-token>'
-  agent_utils         : true
-  ```
-
- * Enable browserbot and install the international language packages
-
-  ```
-  account_token       : '<account-token>'
-  browserbot          : true
-  international_langs : true
-  ```
 
 
- * Set the log path location
+* Default settings
 
-  ```
-  account_token       : '<account-token>'
-  log_path            : '/var/log'
-  ```
+```
+account_token       : '<account-token>'
+```
 
- * Set the proxy (http proxy, no auth)
+* Set the proxy (http proxy, no auth)
 
-  ```
-  account_token       : '<account-token>'
-  proxy_host          : 'proxy.example.com',
-  proxy_port          : '8080',
-  ```
+```
+account_token       : '<account-token>'
+proxy_host          : 'proxy.example.com'
+proxy_port          : '8080'
+```
 
- * Don't check the dependencies and don't add the ThousandEyes repository
+* Other options
 
-  ```
-  account_token       : '<account-token>'
-  set_repo            : false
-  ```
+```
+log_file_size       : ''
+proxy_user          : ''
+proxy_pass          : ''
+proxy_bypass_list   : ''
+```
 
- * Other options
-  ```
-  log_file_size       : ''
-  proxy_user          : ''
-  proxy_pass          : ''
-  proxy_bypass_list   : ''
-  ```
 
 ## License
 This program is free software: you can redistribute it and/or modify  
