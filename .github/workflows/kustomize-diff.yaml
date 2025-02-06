@@ -1,0 +1,57 @@
+name: Show kustomize diff
+
+run-name: Comparing to ${{ inputs.base-ref || github.event.before || github.base_ref }}..${{ inputs.head-ref || github.event.after || github.head_ref }} by @${{ github.actor }}
+
+on:
+  pull_request:
+    branches:
+      - main
+      - master
+
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - bases/**/*.yaml
+      - environments/**/*.yaml
+
+  workflow_dispatch:
+    inputs:
+      base-ref:
+        description: base branch/directory/sha (source)
+        required: true
+        type: string
+      head-ref:
+        description: head branch/directory/sha (destination)
+        required: true
+        type: string
+      branch:
+        description: If the base and head are paths in the repo, which branch to compare?
+        required: false
+        type: string
+      compare-mode:
+        default: file
+        required: false
+        description: comparison mode to use (file in most cases)
+        type: choice
+        options:
+          - file
+          - git
+      debug:
+        description: Show debug output?
+        type: boolean
+        default: false
+      path:
+        description: 'Used when comparing a single path across multiple commits (example: environments/staging/us-west-1/eks1)'
+        type: string
+        required: false
+
+jobs:
+  kustomize-diff:
+    if: github.repository_owner == 'thousandeyes'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: thousandeyes/gh-action-kustomize-diff@v1
+        with:
+          ssh-key: ${{ secrets.EE_GITOPS_SSH_KEY }}
